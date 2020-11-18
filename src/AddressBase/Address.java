@@ -7,13 +7,13 @@ public class Address {
     protected String Street;
     protected String City;
     protected String Country;
-    protected Integer Phone;
+    protected String Phone;
     protected String Postcode;
 
     public Address() {
     }
 
-    public Address(String name, String surname, String street, String city, String country, Integer phone, String postcode) {
+    public Address(String name, String surname, String street, String city, String country, String phone, String postcode) {
         this();
         this.Name = name;
         this.Surname = surname;
@@ -52,8 +52,13 @@ public class Address {
         return City;
     }
 
-    public void setCity(String city) {
-        City = city;
+    public void setCity(String city) throws CityException {
+        if (city.chars().allMatch(Character::isAlphabetic)) {
+            City = city;
+        }
+        else {
+            throw new CityException(city);
+        }
     }
 
     public String getCountry() {
@@ -64,11 +69,11 @@ public class Address {
         Country = country;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return Phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         Phone = phone;
     }
 
@@ -78,6 +83,20 @@ public class Address {
 
     public void setPostcode(String postcode) {
         Postcode = postcode;
+    }
+
+    public void clearAll() {
+        this.setName("");
+        this.setSurname("");
+        try {
+        this.setCity(""); }
+        catch (CityException e ) {
+            System.out.println("Wpisane miasto zawiera liczbę :" + e.geNumericCity());
+        };
+        this.setStreet("");
+        this.setPostcode("");
+        this.setCountry("");
+        this.setPhone(null);
     }
 
     public void showAddress() {
