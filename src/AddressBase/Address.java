@@ -80,7 +80,7 @@ public class Address {
         Postcode = postcode;
     }
 
-    public void showOffer() {
+    public void showAddress() {
         System.out.println("===================================================");
         System.out.println(this.getName() + " " + this.getSurname());
         System.out.println(this.getStreet());
