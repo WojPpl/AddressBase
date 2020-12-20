@@ -1,5 +1,9 @@
 package AddressBase;
+
 import org.json.simple.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
 
 public class Address {
 
@@ -122,29 +126,36 @@ public class Address {
     }
     // nowe funkcjonalności
 
-    public void showFullName() {
-        System.out.println(
-                this.getName() + " " + this.getSurname()
-        );
+    public String showFullName() {
+       return this.getName() + " " + this.getSurname();
     }
 
-    public void showFullAddress() {
-        System.out.println(this.getStreet() + " " + this.getPostcode() + " " + this.getCity() + "," + this.getCountry());
+    public String showFullAddress() {
+        return this.getStreet() + " " + this.getPostcode() + " " + this.getCity() + "," + this.getCountry();
     }
 
-    public void addressToJson() {
+    public JSONObject addressToJson() {
         JSONObject json = new JSONObject();
-        json.put("name","foo");
-        json.put("num",new Integer(100));
-        json.put("balance",new Double(1000.21));
-        json.put("is_vip",new Boolean(true));
-        json.put("nickname",null);
-        System.out.print(json);
+        json.put("name", this.getName());
+        json.put("surname", this.getSurname());
+        json.put("street", this.getStreet());
+        json.put("country", this.getCountry());
+        json.put("city", this.getCity());
+        json.put("phone", this.getPhone());
+        json.put("postcode", this.getPostcode());
+        json.put("email", this.getEmail());
+        return json;
     }
 
-    public Address addressFromJson(JSONObject address) {
-        Address addressFromJson = new Address();
-        return addressFromJson;
+    public Address addressFromJson(JSONObject jsonAddress)  {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            Address address = mapper.readValue(jsonAddress.toJSONString(), Address.class);
+            return address;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
