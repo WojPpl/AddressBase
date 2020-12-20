@@ -1,4 +1,5 @@
 package AddressBase;
+import org.json.simple.JSONObject;
 
 public class Address {
 
@@ -9,11 +10,13 @@ public class Address {
     protected String Country;
     protected String Phone;
     protected String Postcode;
+    protected String Email;
+
 
     public Address() {
     }
 
-    public Address(String name, String surname, String street, String city, String country, String phone, String postcode) {
+    public Address(String name, String surname, String street, String city, String country, String phone, String postcode, String email) {
         this();
         this.Name = name;
         this.Surname = surname;
@@ -22,6 +25,7 @@ public class Address {
         this.Country = country;
         this.Phone = phone;
         this.Postcode = postcode;
+        this.Email = email; //nowe pole
     }
 
     public String getName() {
@@ -85,6 +89,14 @@ public class Address {
         Postcode = postcode;
     }
 
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
+    }
+
     public void clearAll() {
         this.setName("");
         this.setSurname("");
@@ -108,4 +120,32 @@ public class Address {
         System.out.println(this.getPhone());
         System.out.println("===================================================");
     }
+    // nowe funkcjonalności
+
+    public void showFullName() {
+        System.out.println(
+                this.getName() + " " + this.getSurname()
+        );
+    }
+
+    public void showFullAddress() {
+        System.out.println(this.getStreet() + " " + this.getPostcode() + " " + this.getCity() + "," + this.getCountry());
+    }
+
+    public void addressToJson() {
+        JSONObject json = new JSONObject();
+        json.put("name","foo");
+        json.put("num",new Integer(100));
+        json.put("balance",new Double(1000.21));
+        json.put("is_vip",new Boolean(true));
+        json.put("nickname",null);
+        System.out.print(json);
+    }
+
+    public Address addressFromJson(JSONObject address) {
+        Address addressFromJson = new Address();
+        return addressFromJson;
+    }
+
+
 }
