@@ -4,6 +4,7 @@ import org.json.simple.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.util.List;
 
 public class Address {
 
@@ -15,7 +16,7 @@ public class Address {
     protected String Phone;
     protected String Postcode;
     protected String Email;
-
+    protected List<Address> AdditionalAddresses;
 
     public Address() {
     }
@@ -124,7 +125,22 @@ public class Address {
         System.out.println(this.getPhone());
         System.out.println("===================================================");
     }
-    // nowe funkcjonalności
+
+    public void showAdditionalAddresses(List<Address> additionalAddresses) {
+        additionalAddresses.forEach(address -> {
+            System.out.println("===================================================");
+            System.out.println(address.getName() + " " + address.getSurname());
+            System.out.println(address.getStreet());
+            System.out.println(address.getPostcode() + " " + address.getCity());
+            System.out.println(address.getCountry());
+            System.out.println(address.getPhone());
+            System.out.println("===================================================");
+        });
+    }
+
+    public int countAdditionalAddresses() {
+        return this.getAdditionalAddresses().size();
+    }
 
     public String showFullName() {
        return this.getName() + " " + this.getSurname();
@@ -158,5 +174,11 @@ public class Address {
         return null;
     }
 
+    public List<Address> getAdditionalAddresses() {
+        return AdditionalAddresses;
+    }
 
+    public void setAdditionalAddresses(List<Address> additionalAddresses) {
+        AdditionalAddresses = additionalAddresses;
+    }
 }
